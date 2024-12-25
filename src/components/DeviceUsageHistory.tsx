@@ -39,6 +39,22 @@ function DeviceUsageHistory() {
         },
       ]
  
+
+      //   API:
+//   {
+//     "total_reading": [{
+//       "power":2.33,
+//       "timestamp":1734990111367,
+//     }],
+//     "motor_reading": [{
+//       "power":2.33,
+//       "timestamp":1734990111367,
+//     }],
+//       "power":2.33,
+//       "timestamp":1734990111367,
+//     }]
+//   }
+  
       
   return (
     <div>
