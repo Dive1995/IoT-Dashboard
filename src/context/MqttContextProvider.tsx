@@ -7,7 +7,8 @@ type Props = {
 
 export const MqttContext = createContext<{ client: mqtt.MqttClient | null, message: string | null }>({ client: null, message: null });
 
-const MQTT_URL = 'wss://u39ce25e.ala.us-east-1.emqxsl.com:8883';
+// const MQTT_URL = 'ws://broker.emqx.io:8083/mqtt';
+const MQTT_URL = 'wss://u39ce25e.ala.us-east-1.emqxsl.com:8084';
 const MQTT_TOPIC = 'mqtt-arduino';
 
 
@@ -18,12 +19,14 @@ function MqttContextProvider({children}: Props){
   useEffect(() => {
     console.log('Connecting to MQTT broker...');
     // Connect to MQTT broker
+    // const mqttClient = mqtt.connect(MQTT_URL);
     const mqttClient = mqtt.connect(MQTT_URL, {
       username: "sahil",
-    password: "saini",
-    clientId: "mqttjs_debugging",
-    protocolVersion: 4,
-    clean: true,
+      password: "saini",
+      path: "/mqtt"
+      // clientId: "mqttjs_debugging",
+      // protocolVersion: 5,
+      // clean: true,
     });
 
     console.log('MQTT client: ', mqttClient);
