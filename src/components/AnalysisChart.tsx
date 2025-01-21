@@ -22,6 +22,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import { useEffect, useState } from "react";
 
 const chartData = [
     { month: "January", desktop: 186, mobile: 80 },
@@ -43,6 +44,26 @@ const chartData = [
   } satisfies ChartConfig;
 
 function AnalysisChart() {
+  const [data, setData] = useState(chartData);
+  const [selectedValue, setSelectedValue] = useState("today");
+
+  useEffect(() => {
+    // getAnalythicsData(selectedValue);
+  }, []);
+
+  const getAnalythicsData = async (value: string) => {
+    // Fetch data based on selected value
+    const response = await fetch(`https://api.example.com/analytics/${value}`);
+    const data = await response.json();
+    setData(data);
+  }
+
+  const handleValueChange = (value: string) => {
+    setSelectedValue(value);
+    console.log("Selected Value:", value);
+    // getAnalythicsData(selectedValue);
+  };
+
   return (
     <Card>
             <div className="flex justify-between items-center">
@@ -51,7 +72,7 @@ function AnalysisChart() {
                 <CardDescription>January - June 2024</CardDescription>
               </CardHeader>
               <div className="mr-6">
-                <Select defaultValue="today">
+                <Select value={selectedValue} defaultValue="today" onValueChange={handleValueChange}>
                     <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Duration" />
                     </SelectTrigger>
@@ -70,7 +91,7 @@ function AnalysisChart() {
               <ChartContainer config={chartConfig}>
                 <LineChart
                   accessibilityLayer
-                  data={chartData}
+                  data={data}
                   margin={{
                     left: 12,
                     right: 12,

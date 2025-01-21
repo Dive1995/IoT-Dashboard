@@ -2,10 +2,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import RealtimeUsageChart from "./RealtimeUsageChart";
 import AnalysisChart from "./AnalysisChart";
+import Threshold from "@/types/threshold";
 
+type Props = {
+    threshold: Threshold;
+};
 
-
-function DeviceUsageChart() {
+function DeviceUsageChart({threshold}: Props) {
   // const [activeChart, setActiveChart] = useState<keyof typeof chartConfig>("desktop")
 
   return (
@@ -17,7 +20,7 @@ function DeviceUsageChart() {
         </TabsList>
 
         <TabsContent value="realtime">
-          <RealtimeUsageChart/>
+          <RealtimeUsageChart threshold={threshold}/>
         </TabsContent>
 
         <TabsContent value="analysis">

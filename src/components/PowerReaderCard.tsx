@@ -4,7 +4,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 type Props = {
     name: string;
     color?: string;
-    value: string | number;
+    value: number;
 }
 
 function PowerReaderCard({ name, value, color }: Props){
@@ -12,7 +12,7 @@ function PowerReaderCard({ name, value, color }: Props){
         <div>
             <Card className={"w-[250px] shadow-md rounded-xl " + (color ? color : "")}>
                 <CardHeader>
-                <CardTitle>{value}</CardTitle>
+                <CardTitle>{value} <span className=" text-sm">mW</span></CardTitle>
                 <CardDescription>{name}</CardDescription>
                 </CardHeader>
             </Card>
