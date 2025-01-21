@@ -48,7 +48,7 @@ function AnalysisChart() {
   const [selectedValue, setSelectedValue] = useState("today");
 
   useEffect(() => {
-    // getAnalythicsData(selectedValue);
+    getAnalythicsData(selectedValue);
   }, []);
 
   const getAnalythicsData = async (value: string) => {
