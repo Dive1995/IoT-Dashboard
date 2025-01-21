@@ -40,7 +40,7 @@ function MqttContextProvider({children}: Props){
     });
 
     mqttClient.on('message', (topic, payload) => {
-      // console.log(`Message received on ${topic}: ${payload.toString()}`);
+      console.log(`Message received on ${topic}: ${payload.toString()}`);
       // console.log(`Payload ${payload}`);
       const data: Message = JSON.parse(payload.toString());
       setMessage(data); //TODO: Parse the payload
