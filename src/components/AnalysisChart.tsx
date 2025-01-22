@@ -59,9 +59,9 @@ function AnalysisChart() {
     const response = await fetch(`http://ec2-52-59-202-209.eu-central-1.compute.amazonaws.com/data`, {
       method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`
+        "Authorization": `${token}`
       },
       // body: JSON.stringify({ value })
     });
