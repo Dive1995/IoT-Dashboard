@@ -48,13 +48,25 @@ function AnalysisChart() {
   const [selectedValue, setSelectedValue] = useState("today");
 
   useEffect(() => {
+    console.log("Call analytics");
     getAnalythicsData(selectedValue);
   }, []);
 
   const getAnalythicsData = async (value: string) => {
     // Fetch data based on selected value
-    const response = await fetch(`https://api.example.com/analytics/${value}`);
+    console.log(value);
+    const token = "bxfaKjsQzKA0GK0BGufTkSllTtxBG0IYsOGOoGMYFkM=";
+    const response = await fetch(`http://ec2-52-59-202-209.eu-central-1.compute.amazonaws.com/data`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      },
+      // body: JSON.stringify({ value })
+    });
+    // const response = await fetch(`https://api.example.com/analytics/${value}`);
     const data = await response.json();
+    console.log("Get analytics data:", data);
     setData(data);
   }
 

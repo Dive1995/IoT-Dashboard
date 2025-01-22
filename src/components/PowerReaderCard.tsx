@@ -12,7 +12,7 @@ function PowerReaderCard({ name, value, color }: Props){
         <div>
             <Card className={"w-[250px] shadow-md rounded-xl " + (color ? color : "")}>
                 <CardHeader>
-                <CardTitle>{value} <span className=" text-sm">mW</span></CardTitle>
+                <CardTitle>{parseFloat(value.toFixed(2))} <span className=" text-sm">mW</span></CardTitle>
                 <CardDescription>{name}</CardDescription>
                 </CardHeader>
             </Card>

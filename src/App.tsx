@@ -9,7 +9,7 @@ import { MqttContext } from "./context/MqttContextProvider"
 
 function App() {
   const [show, setShow] = useState(false);
-  const [threshold, setThreshold] = useState({total: 700, motor: 600, led: 300});
+  const [threshold, setThreshold] = useState({total: 1500, motor: 700, led: 850});
   
   const {message} = useContext(MqttContext);
 
