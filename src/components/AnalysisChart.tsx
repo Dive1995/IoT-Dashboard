@@ -56,7 +56,7 @@ function AnalysisChart() {
     // Fetch data based on selected value
     console.log(value);
     const token = "bxfaKjsQzKA0GK0BGufTkSllTtxBG0IYsOGOoGMYFkM=";
-    const response = await fetch(`/api/data`, {
+    const response = await fetch(`https://e8d1-52-59-202-209.ngrok-free.app/data`, {
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -65,7 +65,6 @@ function AnalysisChart() {
       },
       // body: JSON.stringify({ value })
     });
-    console.log("response:", response);
     // const response = await fetch(`https://api.example.com/analytics/${value}`);
     const data = await response.json();
     console.log("Get analytics data:", data);
