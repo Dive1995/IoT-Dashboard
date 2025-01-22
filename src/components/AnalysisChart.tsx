@@ -12,7 +12,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Separator } from "./ui/separator";
+// import { Separator } from "./ui/separator";
 import {
   Select,
   SelectContent,
@@ -38,7 +38,7 @@ function AnalysisChart() {
   const [data, setData] = useState<{ timestamp: string; total: number; led: number; motor: number }[]>([]);
   const [selectedValue, setSelectedValue] = useState("daily");
   const [averageUsage, setAverageUsage] = useState(0); // New state
-  const [totalUsage, setTotalUsage] = useState(0); // New state
+  // const [totalUsage, setTotalUsage] = useState(0); // New state
 
   useEffect(() => {
     getAnalyticsData(selectedValue);
@@ -70,7 +70,7 @@ function AnalysisChart() {
       );
       const average = formattedData.length > 0 ? total / formattedData.length : 0;
 
-      setTotalUsage(total);
+      // setTotalUsage(total);
       setAverageUsage(Number(average.toFixed(2)));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -186,14 +186,14 @@ function AnalysisChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter>
-        <div className="flex h-5 items-center space-x-4 text-sm">
+        <div className="h-5 items-center space-x-4 text-sm">
           <p>
-            Average usage: <span className="font-bold">{averageUsage} kWh</span>
+            Average total usage: <span className="font-bold">{averageUsage} mW</span>
           </p>
-          <Separator orientation="vertical" className="bg-black" />
+          {/* <Separator orientation="vertical" className="bg-black" />
           <p>
-            Total usage: <span className="font-bold">{totalUsage} kWh</span>
-          </p>
+            Total usage: <span className="font-bold">{totalUsage} mW</span>
+          </p> */}
 
         </div>
       </CardFooter>
