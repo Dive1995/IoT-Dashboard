@@ -56,7 +56,7 @@ function AnalysisChart() {
     // Fetch data based on selected value
     console.log(value);
     const token = "bxfaKjsQzKA0GK0BGufTkSllTtxBG0IYsOGOoGMYFkM=";
-    const response = await fetch(`https://ada9-194-95-60-241.ngrok-free.app/data`, {
+    const response = await fetch(`https://cdf5-52-59-202-209.ngrok-free.app/data`, {
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin': '*',
