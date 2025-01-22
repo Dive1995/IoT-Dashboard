@@ -58,6 +58,7 @@ function AnalysisChart() {
     const token = "bxfaKjsQzKA0GK0BGufTkSllTtxBG0IYsOGOoGMYFkM=";
     const response = await fetch(`http://ec2-52-59-202-209.eu-central-1.compute.amazonaws.com/data`, {
       method: 'GET',
+      mode: "no-cors",
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${token}`
