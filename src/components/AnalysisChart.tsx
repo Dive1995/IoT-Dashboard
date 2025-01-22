@@ -44,7 +44,7 @@ function AnalysisChart() {
 
   const getAnalyticsData = async (value: string) => {
     const token = "bxfaKjsQzKA0GK0BGufTkSllTtxBG0IYsOGOoGMYFkM=";
-    const params = new URLSearchParams({ duration: value }).toString();
+    const params = new URLSearchParams({ time: value }).toString();
     const url = `http://ec2-52-59-202-209.eu-central-1.compute.amazonaws.com/data?${params}`;
     
     try {
