@@ -63,7 +63,7 @@ function AnalysisChart() {
       const rawData = await response.json();
       const formattedData = formatChartData(rawData);
       setData(formattedData);
-      
+
       const total = formattedData.reduce(
         (sum, entry) => sum + entry.total,
         0
@@ -188,12 +188,13 @@ function AnalysisChart() {
       <CardFooter>
         <div className="flex h-5 items-center space-x-4 text-sm">
           <p>
-            Average usage: <span className="font-bold">4 kWh</span>
+            Average usage: <span className="font-bold">{averageUsage} kWh</span>
           </p>
           <Separator orientation="vertical" className="bg-black" />
           <p>
-            Total usage: <span className="font-bold">9 kWh</span>
+            Total usage: <span className="font-bold">{totalUsage} kWh</span>
           </p>
+
         </div>
       </CardFooter>
     </Card>
