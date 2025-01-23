@@ -2,7 +2,6 @@ import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -33,9 +32,7 @@ const chartConfig = {
 };
 
 function AnalysisChart() {
-  const [data, setData] = useState<
-    { timestamp: string; total: number; led: number; motor: number }[]
-  >([]);
+  const [data, setData] = useState<{ timestamp: string; total: number; led: number; motor: number }[]>([]);
   const [selectedValue, setSelectedValue] = useState("daily");
   const [averageUsage, setAverageUsage] = useState(0);
 
@@ -47,7 +44,7 @@ function AnalysisChart() {
     const token = "bxfaKjsQzKA0GK0BGufTkSllTtxBG0IYsOGOoGMYFkM=";
     const params = new URLSearchParams({ time: value }).toString();
     const url = `http://ec2-52-59-202-209.eu-central-1.compute.amazonaws.com/data?${params}`;
-
+    
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -61,9 +58,7 @@ function AnalysisChart() {
       setData(formattedData);
 
       const total = formattedData.reduce((sum, entry) => sum + entry.total, 0);
-      const average =
-        formattedData.length > 0 ? total / formattedData.length : 0;
-
+      const average = formattedData.length > 0 ? total / formattedData.length : 0;
       setAverageUsage(Number(average.toFixed(2)));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -76,9 +71,7 @@ function AnalysisChart() {
     motorReading: Reading[];
   }
 
-  const formatChartData = (
-    rawData: RawData
-  ): { timestamp: string; total: number; led: number; motor: number }[] => {
+  const formatChartData = (rawData: RawData): { timestamp: string; total: number; led: number; motor: number }[] => {
     const allTimestamps = new Set<number>();
     const readings: (keyof RawData)[] = ["totalReading", "ledReading", "motorReading"];
 
@@ -86,25 +79,20 @@ function AnalysisChart() {
       rawData[key]?.forEach((item: Reading) => allTimestamps.add(item.timestamp));
     });
 
-    const sortedTimestamps = Array.from(allTimestamps)
-      .map(Number)
-      .sort((a: number, b: number) => a - b);
+    const sortedTimestamps = Array.from(allTimestamps).map(Number).sort((a, b) => a - b);
     return sortedTimestamps.map((timestamp) => {
       const formattedTimestamp = new Date(timestamp).toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
         hour: "2-digit",
         minute: "2-digit",
+        hour12: true,
       });
       return {
         timestamp: formattedTimestamp,
-        total:
-          rawData.totalReading?.find((x: Reading) => x.timestamp === timestamp)
-            ?.power || 0,
-        led:
-          rawData.ledReading?.find((x: Reading) => x.timestamp === timestamp)
-            ?.power || 0,
-        motor:
-          rawData.motorReading?.find((x: Reading) => x.timestamp === timestamp)
-            ?.power || 0,
+        total: rawData.totalReading?.find((x: Reading) => x.timestamp === timestamp)?.power || 0,
+        led: rawData.ledReading?.find((x: Reading) => x.timestamp === timestamp)?.power || 0,
+        motor: rawData.motorReading?.find((x: Reading) => x.timestamp === timestamp)?.power || 0,
       };
     });
   };
@@ -113,46 +101,11 @@ function AnalysisChart() {
     setSelectedValue(value);
   };
 
-  interface CustomTooltipProps {
-    active?: boolean;
-    payload?: {
-      dataKey: string;
-      value: number;
-    }[];
-    label?: string;
-  }
-  
-  // Custom Tooltip Component
-  const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-2 rounded shadow-md text-xs">
-          <p className="font-bold">{label}</p>
-          {payload.map((entry, index) => (
-            <div key={`item-${index}`} className="flex justify-between">
-              <span
-                style={{
-                  color: chartConfig[entry.dataKey as keyof typeof chartConfig]
-                    .color,
-                }}
-              >
-                {chartConfig[entry.dataKey as keyof typeof chartConfig].label}
-              </span>
-              <span>{entry.value} mW</span>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
     <Card>
       <div className="flex justify-between items-center">
         <CardHeader>
           <CardTitle className="text-xl font-normal">Analysis</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
         </CardHeader>
         <div className="mr-6">
           <Select
@@ -177,6 +130,7 @@ function AnalysisChart() {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
+            accessibilityLayer
             data={data}
             margin={{
               left: 12,
@@ -192,7 +146,20 @@ function AnalysisChart() {
             />
             <ChartTooltip
               cursor={false}
-              content={<CustomTooltip />}
+              content={(props) => {
+                if (props.active && props.payload && props.payload.length) {
+                  const { payload } = props.payload[0];
+                  return (
+                    <div className="custom-tooltip">
+                      <p>{payload.timestamp}</p>
+                      <p>Total: {payload.total} mW</p>
+                      <p>LED: {payload.led} mW</p>
+                      <p>Motor: {payload.motor} mW</p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
             />
             <Line
               dataKey="total"
