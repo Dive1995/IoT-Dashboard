@@ -13,29 +13,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 function DeviceUsageHistory() {
     const history = [
         {
-          date: "01.01.2025",
-          device: "Motor 1",
-          usage: "0.3 kWh"
+          date: "20.01.2025",
+          device: "Motor",
+          usage: "773 mW"
         },
         {
-          date: "02.01.2025",
-          device: "Motor 2",
-          usage: "0.2 kWh"
+          date: "20.01.2025",
+          device: "Motor",
+          usage: "820 mW"
         },
         {
-          date: "03.01.2025",
-          device: "LED 1",
-          usage: "0.3 kWh"
+          date: "21.01.2025",
+          device: "LED",
+          usage: "940 mW"
         },
         {
-          date: "04.01.2025",
-          device: "Motor 1",
-          usage: "0.2 kWh"
+          date: "21.01.2025",
+          device: "Motor",
+          usage: "800 mW"
         },
         {
-          date: "05.01.2025",
-          device: "LED 2",
-          usage: "0.1 kWh"
+          date: "21.01.2025",
+          device: "LED",
+          usage: "900 mW"
         },
       ]
  
