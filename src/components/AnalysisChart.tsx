@@ -149,18 +149,38 @@ function AnalysisChart() {
               content={(props) => {
                 if (props.active && props.payload && props.payload.length) {
                   const { payload } = props.payload[0];
+
                   return (
-                    <div className="custom-tooltip">
-                      <p>{payload.timestamp}</p>
-                      <p>Total: {payload.total} mW</p>
-                      <p>LED: {payload.led} mW</p>
-                      <p>Motor: {payload.motor} mW</p>
+                    <div
+                      className="custom-tooltip"
+                      style={{
+                        backgroundColor: "white",
+                        padding: "8px",
+                        borderRadius: "4px",
+                        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+                      }}
+                    >
+                      <p style={{ fontWeight: "bold", marginBottom: "4px" }}>
+                        {payload.timestamp}
+                      </p>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span style={{ color: chartConfig.totalReading.color }}>
+                          Total: {payload.total.toFixed(2)} mW
+                        </span>
+                        <span style={{ color: chartConfig.ledReading.color }}>
+                          LED: {payload.led.toFixed(2)} mW
+                        </span>
+                        <span style={{ color: chartConfig.motorReading.color }}>
+                          Motor: {payload.motor.toFixed(2)} mW
+                        </span>
+                      </div>
                     </div>
                   );
                 }
                 return null;
               }}
             />
+
             <Line
               dataKey="total"
               type="monotone"
